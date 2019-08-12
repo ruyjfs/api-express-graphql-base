@@ -1,0 +1,31 @@
+version: '3.5'
+services:
+  api:
+    container_name: expressjs-api
+    build: 'docker/.'
+    image: node:10
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
+    environment:
+          - APP_ENV=local
+    # entrypoint: ["/bin/sh", "/var/www/docker/entrypoint/local.sh"]
+    command: yarn start
+    ports:
+        - 4000:4000
+    tty: true
+    restart: on-failure
+    links:
+      - db
+    depends_on:
+      - db
+  db:
+    image: mongo
+    container_name: expressjs-db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: expressjs
+      MONGO_INITDB_ROOT_PASSWORD: expressjs
+    ports:
+    - 27017:27017
+    tty: true
+    restart: always

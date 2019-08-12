@@ -1,0 +1,6 @@
+{
+  "schemaPath": "*/schema.js",
+  "arrowParens": false,
+  "includes": ["*.graphql"],
+  "excludes": ["temp/**"]
+}
